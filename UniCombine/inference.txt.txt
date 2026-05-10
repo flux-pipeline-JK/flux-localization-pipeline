@@ -1,0 +1,149 @@
+python prepare_inputs.py 실행 
+
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_name subject_fill_union \
+  --denoising_lora_weight 1.0 \
+  --fill examples/custom/background.jpg \
+  --subject examples/custom/subject.jpg \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "An orange Fanta PET soda bottle directly placed on the white office desk, no reflection, no duplicate, photorealistic"
+  
+  
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_name subject_fill_union \
+  --denoising_lora_weight 2.0 \
+  --fill examples/custom/background.jpg \
+  --subject examples/custom/subject.jpg \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "An orange Fanta PET soda bottle directly placed on the white office desk, no reflection, no duplicate, photorealistic"
+  
+  
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 1.0 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background.jpg \
+  --subject MountainDew.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A Green MountainDew PET soda bottle directly placed on the white office desk, no reflection, no duplicate, photorealistic"
+  
+  
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 1.0 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background.jpg \
+  --subject Monster.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A Monster soda can directly placed on the white office desk, no reflection, no duplicate, photorealistic"
+  
+  
+  
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 1.0 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background.jpg \
+  --subject Monster.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A highly detailed Monster Energy drink can, exact shape and proportions, sharp printed logo, product photography, soft natural lighting, placed on a clean white office desk, depth of field, ultra realistic, 8k"
+  
+  
+
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 1.0 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background_512.jpg \
+  --subject examples/custom/Welchs_512.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A Welchs soda can held in a hand, same shape, same position, realistic lighting, photorealistic, no distortion, no extra objects"
+
+
+
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 1.0 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background_512.jpg \
+  --subject examples/custom/Monster_black_512.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A black Monster soda can held in a hand, same shape, same position, realistic lighting, photorealistic, no distortion, no extra objects"
+
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 0.7 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background_512.jpg \
+  --subject examples/custom/pocari_512.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A blue pocari soda can held in a hand, same shape, same position, realistic lighting, photorealistic, no distortion, no extra objects"
+
+
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 0.7 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background_cola2_512_masked.png \
+  --subject examples/custom/king_512.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "The king soda can held in a hand, same shape, same position, realistic lighting, photorealistic, no distortion, no extra objects"
+  
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 0.9 \
+  --subject_weight 1.0 \
+  --fill examples/custom/background_cola2_masked.png \
+  --subject examples/custom/itoen_512.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "An Green Itoen PET greentea bottle directly placed on the white office desk, no reflection, no duplicate, photorealistic"
+  
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+python inference.py \
+  --condition_types fill subject \
+  --denoising_lora_weight 1.0 \
+  --fill_weight 0.63 \
+  --subject_weight 1.25 \
+  --fill examples/custom/background_model_512_masked.png \
+  --subject examples/custom/NewMountainDew_512_right90.png \
+  --json examples/custom/prompt.json \
+  --version training-based \
+  --prompt "A Green MountainDew PET soda bottle held in a woman's hand, same shape, same position, realistic lighting, photorealistic, no distortion, no extra objects, keep original aspect ratio, do not resize or expand the canvas, use the exact product shape without modification, preserve label details and text, do not redraw the bottle, keep original geometry and proportions, no deformation, keep the exact original size of the bottle, do not change the scale, maintain consistent size relative to the hand"
+
+
+
+
+
+
+
+  
