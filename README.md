@@ -1,4 +1,5 @@
 # FLUX Localization Pipeline
+
 Automatic Object Transformation in Image via FLUX Inpainting with Multi-LoRA Condition Decomposition
 
 <img width="1280" height="720" alt="pipeline" src="https://github.com/user-attachments/assets/c423934a-5fcf-4ca2-8542-b021fe7e9500" />
@@ -65,15 +66,6 @@ The framework consists of four stages:
 - Denoising LoRA:
   stabilizes iterative diffusion generation
 
-- Fill LoRA:
-  preserves scene-level texture and lighting
-
-- Subject LoRA:
-  preserves object identity and fine details
-
-- Denoising LoRA:
-  stabilizes iterative diffusion generation
-
 ---
 
 ## Features
@@ -88,17 +80,9 @@ The framework consists of four stages:
 
 ---
 
-## Installation
+# Environment Setup
 
-Clone the repository:
-
-```bash
-git clone https://github.com/flux-pipeline-JK/flux-localization-pipeline.git
-
-cd flux-localization-pipeline
-```
-
-Create environment:
+Create conda environment:
 
 ```bash
 conda create -n flux-localization python=3.10
@@ -111,6 +95,141 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+---
+
+# Required External Libraries
+
+This project is built on top of the following frameworks:
+
+- FLUX.1-schnell
+- UniCombine
+- Grounding DINO
+- Segment Anything Model (SAM)
+
+Please install and configure these libraries locally before running the pipeline.
+
+---
+
+## 1. Install Grounding DINO
+
+```bash
+git clone https://github.com/IDEA-Research/GroundingDINO.git
+
+cd GroundingDINO
+
+pip install -e .
+
+cd ..
+```
+
+---
+
+## 2. Install Segment Anything Model (SAM)
+
+```bash
+git clone https://github.com/facebookresearch/segment-anything.git
+
+cd segment-anything
+
+pip install -e .
+
+cd ..
+```
+
+---
+
+## 3. Install UniCombine
+
+```bash
+git clone https://github.com/frank-xwang/UniCombine.git
+```
+
+---
+
+## 4. Download FLUX.1-schnell
+
+Download FLUX model from:
+
+https://huggingface.co/black-forest-labs/FLUX.1-schnell
+
+---
+
+# Local Directory Configuration
+
+After preparing the local environment, organize directories as follows:
+
+```bash
+project_root/
+│
+├── GroundingDINO/
+├── segment-anything/
+├── UniCombine/
+├── bb_generate/
+├── mask_generate/
+└── flux-localization-pipeline/
+```
+
+---
+
+# Our Custom Modules
+
+This repository only contains:
+
+- custom implementation code
+- modified modules
+- experimental pipeline components
+
+Please place the provided directories into your local project environment.
+
+---
+
+## Bounding Box Generation
+
+Directory:
+
+```bash
+bb_generate/
+```
+
+Functions:
+
+- Grounding DINO inference
+- object localization
+- bounding box extraction
+
+---
+
+## Mask Generation
+
+Directory:
+
+```bash
+mask_generate/
+```
+
+Functions:
+
+- SAM-based segmentation
+- binary mask generation
+- mask refinement
+
+---
+
+## Multi-LoRA FLUX Integration
+
+Directory:
+
+```bash
+UniCombine/src/
+```
+
+Functions:
+
+- Fill LoRA conditioning
+- Subject LoRA conditioning
+- Denoising LoRA stabilization
+- conditional FLUX generation
 
 ---
 
@@ -135,7 +254,7 @@ tqdm
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```bash
 flux-localization-pipeline/
@@ -144,6 +263,10 @@ flux-localization-pipeline/
 ├── prepare_inputs.py
 ├── force_composite.py
 ├── requirements.txt
+│
+├── bb_generate/
+│
+├── mask_generate/
 │
 ├── src/
 │   ├── UniCombinePipeline.py
@@ -162,7 +285,41 @@ flux-localization-pipeline/
 
 ---
 
-## Inference
+# Model Checkpoints
+
+Download required checkpoints manually.
+
+| Model | Source |
+|---|---|
+| Grounding DINO | https://github.com/IDEA-Research/GroundingDINO |
+| SAM ViT-H | https://github.com/facebookresearch/segment-anything |
+| FLUX.1-schnell | https://huggingface.co/black-forest-labs/FLUX.1-schnell |
+
+---
+
+# Running Pipeline
+
+## Step 1. Object Localization
+
+Run bounding box generation:
+
+```bash
+python bb_generate/...
+```
+
+---
+
+## Step 2. Mask Extraction
+
+Run mask generation:
+
+```bash
+python mask_generate/...
+```
+
+---
+
+## Step 3. FLUX Multi-LoRA Inpainting
 
 Run object transformation:
 
@@ -245,5 +402,14 @@ Korean title:
 
 > FLUX 인페인팅과 다중 LoRA 조건 분리를 이용한 영상 객체 자동 변환
 
+---
 
+# Notes
 
+This repository does NOT include:
+
+- external repositories
+- pretrained checkpoints
+- FLUX base models
+
+Only custom implementation and modified modules are provided.
