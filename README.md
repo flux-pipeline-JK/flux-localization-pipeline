@@ -348,60 +348,185 @@ Download required checkpoints manually.
 
 ---
 
-# Running Pipeline
+# Inference Pipeline
 
-## Step 1. Object Localization
+The overall inference process consists of four stages:
 
-Run bounding box generation:
+1. Target object localization
+2. SAM-based mask extraction
+3. Binary mask generation
+4. FLUX Multi-LoRA inpainting
+
+---
+
+## Step 1. Object Localization + SAM Mask Extraction
+
+Inside the `bb_generate/` directory, the target object is first detected using:
 
 ```bash
-python bb_generate/grounded_sam_origin.py
+grounded_sam_bvg.py
 ```
 
-Example scripts:
+This step performs:
+
+- Grounding DINO object detection
+- SAM segmentation
+- bounding box extraction
+
+Outputs:
+
+- detected bounding box coordinates
+- SAM mask image
+
+Example:
 
 ```bash
-python bb_generate/grounded_sam_beverage.py
-
-python bb_generate/grounded_sam_occlusion.py
+python bb_generate/grounded_sam_bvg.py
 ```
 
 ---
 
-## Step 2. Mask Extraction
+## Step 2. Binary Mask Generation
 
-Run mask generation:
+Inside the `mask_generate/` directory, the generated bounding box coordinates and SAM mask image are used as inputs for:
 
 ```bash
-python mask_generate/target_sam.py
+cola_sam_box.py
 ```
 
-Binary mask generation:
+This step generates a binary mask image:
+
+- Target object = white (255)
+- Background = black (0)
+
+Output:
+
+- binary target mask image
+
+Example:
 
 ```bash
-python mask_generate/target_sam_binary.py
+python mask_generate/cola_sam_box.py
 ```
 
 ---
 
-## Step 3. FLUX Multi-LoRA Inpainting
+## Step 3. Input Preprocessing
 
-Run object transformation:
+Inside the `UniCombine/examples/custom/` directory:
+
+### 1. Resize Input Images
+
+Run:
+
+```bash
+Image_resize.py
+```
+
+This script resizes:
+
+- target image
+- target binary mask
+
+to:
+
+```text
+512 × 512 resolution
+```
+
+(maximum size: 512)
+
+Example:
+
+```bash
+python UniCombine/examples/custom/Image_resize.py
+```
+
+---
+
+### 2. Generate Background Image
+
+Run:
+
+```bash
+prepare_inputs.py
+```
+
+Inputs:
+
+- target image
+- target binary mask image
+
+This step generates:
+
+- background image for FLUX Fill conditioning
+
+Example:
+
+```bash
+python UniCombine/examples/custom/prepare_inputs.py
+```
+
+---
+
+## Step 4. FLUX Multi-LoRA Inference
+
+Finally, run the command provided in:
+
+```bash
+inference.txt
+```
+
+to execute:
+
+```bash
+inference.py
+```
+
+This step performs:
+
+- FLUX inpainting
+- Fill LoRA conditioning
+- Subject LoRA conditioning
+- Denoising LoRA stabilization
+
+Final output:
+
+- transformed object image
+- background-preserved localization result
+
+Example:
 
 ```bash
 python UniCombine/examples/custom/inference.py
 ```
 
-Example workflow:
-
-1. Detect target object using Grounding DINO
-2. Generate segmentation mask using SAM
-3. Construct:
-   - background condition
-   - subject condition
-4. Generate transformed object using FLUX inpainting
-
 ---
+
+# Full Inference Flow
+
+```text
+Target Image
+    ↓
+grounded_sam_bvg.py
+    ↓
+Bounding Box + SAM Mask
+    ↓
+cola_sam_box.py
+    ↓
+Binary Target Mask
+    ↓
+Image_resize.py
+    ↓
+prepare_inputs.py
+    ↓
+Background Image Generation
+    ↓
+inference.py
+    ↓
+Final FLUX Localization Output
+```
+
 
 ## Experimental Settings
 
