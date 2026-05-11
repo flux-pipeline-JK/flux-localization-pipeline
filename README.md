@@ -46,7 +46,7 @@ The framework consists of four stages:
 
 ### Multi-LoRA Composition
 
-\[
+```math
 \Delta \theta_{LoRA}
 =
 \Delta \theta_{fill}
@@ -54,7 +54,16 @@ The framework consists of four stages:
 \Delta \theta_{subj}
 +
 \Delta \theta_{denoise}
-\]
+```
+
+- Fill LoRA:
+  preserves scene-level texture and lighting
+
+- Subject LoRA:
+  preserves object identity and fine details
+
+- Denoising LoRA:
+  stabilizes iterative diffusion generation
 
 - Fill LoRA:
   preserves scene-level texture and lighting
