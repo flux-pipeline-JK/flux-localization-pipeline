@@ -157,24 +157,36 @@ https://huggingface.co/black-forest-labs/FLUX.1-schnell
 
 # Local Environment Configuration
 
-After installing external frameworks locally, integrate the provided custom modules into your working environment.
-
-Recommended structure:
+The original experimental environment was organized as follows:
 
 ```bash
 workspace/
 │
-├── GroundingDINO/
-├── segment-anything/
 ├── UniCombine/
+│   ├── assets/
+│   ├── ckpt/
+│   ├── demo_Condition_LoRA/
+│   ├── examples/
+│   ├── output/
+│   └── src/
 │
-└── flux-localization-pipeline/
-    ├── UniCombine/
-    ├── bb_generate/
-    └── mask_generate/
+├── bb_generate/
+│   ├── demo/
+│   ├── groundingdino/
+│   ├── datasets/
+│   ├── models/
+│   ├── util/
+│   └── weights/
+│
+└── mask_generate/
+    ├── assets/
+    ├── demo/
+    ├── notebooks/
+    ├── scripts/
+    └── segment_anything/
 ```
 
----
+The files provided in this repository correspond only to custom implementation and modified experimental modules used in our paper.
 
 # Our Custom Modules
 
