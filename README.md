@@ -1,8 +1,7 @@
-# CTG 후처리 모듈을 활용한 <br>Zero-Shot Open-Vocabulary Segmentation 개선 연구
+# FLUX 인페인팅과 다중 LoRA 조건 분리를 이용한 영상 객체 자동 변환
 
 
-
-<img width="988" height="488" alt="image" src="https://github.com/user-attachments/assets/3c095ff1-1a29-4f64-a4a4-317f9831ec01" />
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/c423934a-5fcf-4ca2-8542-b021fe7e9500" />
 
 ## Installation
 
