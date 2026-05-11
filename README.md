@@ -155,32 +155,41 @@ https://huggingface.co/black-forest-labs/FLUX.1-schnell
 
 ---
 
-# Local Directory Configuration
+# Local Environment Configuration
 
-After preparing the local environment, organize directories as follows:
+After installing external frameworks locally, integrate the provided custom modules into your working environment.
+
+Recommended structure:
 
 ```bash
-project_root/
+workspace/
 │
 ├── GroundingDINO/
 ├── segment-anything/
 ├── UniCombine/
-├── bb_generate/
-├── mask_generate/
+│
 └── flux-localization-pipeline/
+    ├── UniCombine/
+    ├── bb_generate/
+    └── mask_generate/
 ```
 
 ---
 
 # Our Custom Modules
 
-This repository only contains:
+This repository only contains our custom implementation and modified experimental modules.
 
-- custom implementation code
-- modified modules
-- experimental pipeline components
+External frameworks such as:
 
-Please place the provided directories into your local project environment.
+- Grounding DINO
+- Segment Anything Model (SAM)
+- FLUX.1-schnell
+- UniCombine
+
+must be installed separately in the local environment.
+
+The provided scripts are designed to be integrated into the original framework structure.
 
 ---
 
@@ -198,6 +207,16 @@ Functions:
 - object localization
 - bounding box extraction
 
+Files:
+
+```bash
+bb_generate/
+├── grounded_sam_beverage.py
+├── grounded_sam_occlusion.py
+├── grounded_sam_origin.py
+└── requirements.txt
+```
+
 ---
 
 ## Mask Generation
@@ -214,6 +233,14 @@ Functions:
 - binary mask generation
 - mask refinement
 
+Files:
+
+```bash
+mask_generate/
+├── target_sam.py
+└── target_sam_binary.py
+```
+
 ---
 
 ## Multi-LoRA FLUX Integration
@@ -221,7 +248,7 @@ Functions:
 Directory:
 
 ```bash
-UniCombine/src/
+UniCombine/examples/custom/
 ```
 
 Functions:
@@ -230,6 +257,20 @@ Functions:
 - Subject LoRA conditioning
 - Denoising LoRA stabilization
 - conditional FLUX generation
+
+Files:
+
+```bash
+UniCombine/examples/custom/
+├── Image_resize.py
+├── background_occ.py
+├── force_composite.py
+├── inference.py
+├── inference.txt.txt
+├── prepare_inputs.py
+├── requirements.txt
+└── update_inputs.py
+```
 
 ---
 
@@ -259,28 +300,26 @@ tqdm
 ```bash
 flux-localization-pipeline/
 │
-├── inference.py
-├── prepare_inputs.py
-├── force_composite.py
-├── requirements.txt
+├── UniCombine/
+│   └── examples/custom/
+│       ├── Image_resize.py
+│       ├── background_occ.py
+│       ├── force_composite.py
+│       ├── inference.py
+│       ├── inference.txt.txt
+│       ├── prepare_inputs.py
+│       ├── requirements.txt
+│       └── update_inputs.py
 │
 ├── bb_generate/
+│   ├── grounded_sam_beverage.py
+│   ├── grounded_sam_occlusion.py
+│   ├── grounded_sam_origin.py
+│   └── requirements.txt
 │
-├── mask_generate/
-│
-├── src/
-│   ├── UniCombinePipeline.py
-│   ├── UniCombineTransformer2DModel.py
-│   ├── UniCombineTransformerBlock.py
-│   ├── condition.py
-│   ├── dataloader.py
-│   ├── hook.py
-│   ├── text_encoder.py
-│   └── lora_switching_module.py
-│
-├── examples/
-│
-└── demo_Condition_LoRA/
+└── mask_generate/
+    ├── target_sam.py
+    └── target_sam_binary.py
 ```
 
 ---
@@ -304,7 +343,15 @@ Download required checkpoints manually.
 Run bounding box generation:
 
 ```bash
-python bb_generate/...
+python bb_generate/grounded_sam_origin.py
+```
+
+Example scripts:
+
+```bash
+python bb_generate/grounded_sam_beverage.py
+
+python bb_generate/grounded_sam_occlusion.py
 ```
 
 ---
@@ -314,7 +361,13 @@ python bb_generate/...
 Run mask generation:
 
 ```bash
-python mask_generate/...
+python mask_generate/target_sam.py
+```
+
+Binary mask generation:
+
+```bash
+python mask_generate/target_sam_binary.py
 ```
 
 ---
@@ -324,7 +377,7 @@ python mask_generate/...
 Run object transformation:
 
 ```bash
-python inference.py
+python UniCombine/examples/custom/inference.py
 ```
 
 Example workflow:
@@ -401,6 +454,10 @@ This work was supported by the IITP MSIT SW-centered University Program (2024-0-
 Korean title:
 
 > FLUX 인페인팅과 다중 LoRA 조건 분리를 이용한 영상 객체 자동 변환
+
+Implementation repository:
+
+[flux-localization-pipeline](https://github.com/flux-pipeline-JK/flux-localization-pipeline?utm_source=chatgpt.com)
 
 ---
 
