@@ -592,7 +592,7 @@ This work was supported by the IITP MSIT SW-centered University Program (2024-0-
 > FLUX 인페인팅과 다중 LoRA 조건 분리를 이용한 영상 객체 자동 변환
 
 **English Title**  
-> Automatic Video Object Transformation Using FLUX Inpainting and Multi-LoRA Condition Separation
+> Automatic Object Transformation in Image via FLUX Inpainting with Multi-LoRA Condition Decomposition
 
 **Conference**  
 > 2026 Summer Conference of the Korean Institute of Broadcast and Media Engineers  
