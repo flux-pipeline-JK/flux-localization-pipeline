@@ -3,6 +3,7 @@
 Automatic Object Transformation in Image via FLUX Inpainting with Multi-LoRA Condition Decomposition
 
 <img width="1280" height="720" alt="pipeline" src="https://github.com/user-attachments/assets/c423934a-5fcf-4ca2-8542-b021fe7e9500" />
+<img width="1051" height="429" alt="flux_image" src="https://github.com/user-attachments/assets/072caff7-162b-47ad-aaf1-7ec2e4877be7" />
 
 ---
 
